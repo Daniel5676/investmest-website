@@ -24,7 +24,7 @@
 
         .app-container {
             width: 375px;
-            min-height: 812px; /* Changed to min-height to accommodate content */
+            min-height: 812px;
             background: #f8f9fa;
             border-radius: 32px;
             display: flex;
@@ -174,13 +174,13 @@
             font-weight: 500;
         }
 
-        /* Resent Section */
-        .resent-section {
+        /* Recent Section */
+        .recent-section {
             padding: 20px;
             background: #f8f9fa;
         }
 
-        .resent-section h3 {
+        .recent-section h3 {
             font-size: 18px;
             font-weight: 600;
             color: #333;
@@ -305,7 +305,7 @@
             padding: 20px;
             background: #f8f9fa;
             flex: 1;
-            overflow-y: auto; /* Make transactions section scrollable */
+            overflow-y: auto;
         }
 
         .transaction-list {
@@ -380,9 +380,9 @@
             background: #fff;
             padding: 15px 20px 25px;
             border-top: 1px solid #e9ecef;
-            position: sticky; /* Make footer always visible */
+            position: sticky;
             bottom: 0;
-            z-index: 1000; /* Ensure it stays above other content */
+            z-index: 1000;
         }
 
         .nav-item {
@@ -416,11 +416,50 @@
             color: white;
         }
 
+        /* Popup Styles */
+        .popup-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        .popup-content {
+            background: #fff;
+            border-radius: 16px;
+            padding: 20px;
+            max-width: 300px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 20px;
+            color: #333;
+            cursor: pointer;
+        }
+
+        .popup-content p {
+            font-size: 16px;
+            color: #333;
+            margin: 10px 0 0;
+        }
+
         /* Responsive adjustments */
         @media (max-width: 400px) {
             .app-container {
                 width: 100%;
-                min-height: 100vh; /* Changed to min-height */
+                min-height: 100vh;
                 border-radius: 0;
             }
         }
@@ -432,7 +471,7 @@
         <header class="header">
             <div class="user-info">
                 <div class="avatar">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhTRVJertwnurlDPP9POdmMJC7PsdxFvoLsu2VzJYkGMY-APwMhYtYGsZfz1eqE1kKgiMHQmrISBSjGmQ7YlzpZrQ3ouQYyA-VNgOMPq14StIiBjD46abcMYzpr0qWq-6UlHjz7j1NlT58hvoNGSAm3XduuNj3Hmw1PqcfrUy4_wDF2pHU221jbQ0uxeRvX/s1920/Color-Tesla-logo.jpg" alt="Tesla">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhTRVJertwnurlDPP9POdmMJC7PsdxFvoLsu2VzJYkGMY-APwMhYtYGsZfz1eqE1kKgiMHQmrISBSjGmQ7YlzpZrQ3ouQYyA-VNgOMPq14StIiBjD46abcMYzpr0qWq-6UlHjz7j1NlT58hvoNGSAm3XduuNj3Hmw1PqcfrUy4_wDF2pHU221jbQ0uxeRvX/s1920/Color-Tesla-logo.jpg" alt="Tesla logo">
                 </div>
                 <span class="greeting">Tesla</span>
             </div>
@@ -453,23 +492,23 @@
                 </div>
             </div>
             <div class="balance">$0.00</div>
-            
-            
-                <a href="https://daniel5676.github.io/bank/" class="nav-item-link"><div class="action-buttons">
-                <button class="action-btn">
-                    <div class="btn-icon">
-                        <i class="fas fa-arrow-up"></i>
-                    </div>
-                    <span>Withdraw</span>
-                </button></a>
-            
+            <div class="action-buttons">
+                <a href="https://daniel5676.github.io/bank/" class="nav-item-link">
+                    <button class="action-btn">
+                        <div class="btn-icon">
+                            <i class="fas fa-arrow-up"></i>
+                        </div>
+                        <span>Withdraw</span>
+                    </button>
+                </a>
                 <a href="https://daniel5676.github.io/payment/" class="nav-item-link">
-                <button class="action-btn">
-                    <div class="btn-icon">
-                        <i class="fas fa-arrow-down"></i>
-                    </div>
-                    <span>Deposite</span>
-                </button></a>
+                    <button class="action-btn">
+                        <div class="btn-icon">
+                            <i class="fas fa-arrow-down"></i>
+                        </div>
+                        <span>Deposit</span>
+                    </button>
+                </a>
                 <button class="action-btn">
                     <div class="btn-icon">
                         <i class="fas fa-exchange-alt"></i>
@@ -479,9 +518,9 @@
             </div>
         </section>
 
-        <!-- Resent Section -->
-        <section class="resent-section">
-            <h3>Trending Stock</h3>
+        <!-- Recent Section -->
+        <section class="recent-section">
+            <h3>Trending Stocks</h3>
             <div class="contacts-row">
                 <div class="contact-item">
                     <div class="contact-avatar add-new">
@@ -491,25 +530,25 @@
                 </div>
                 <div class="contact-item">
                     <div class="contact-avatar">
-                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEihBdEigMut6y3TeBXeCpyYdAFEM-aoEZDED_qGWV00VRVwiTGzDn2Tzl_tCLwO6zc2gkkmWtwV8Hz4shigBAyMRMDaH-CiDZARIENS16GuwyeTVmVStRLXYGx1MD4ORxcus8rMJMoL8cQ4hgT2X9I9E2iM1ohJ22Qwb1vtsb7IARw0s_hriiKjM70fiwIx/s1280/R%20%281%29.jpeg" alt="Ben">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEihBdEigMut6y3TeBXeCpyYdAFEM-aoEZDED_qGWV00VRVwiTGzDn2Tzl_tCLwO6zc2gkkmWtwV8Hz4shigBAyMRMDaH-CiDZARIENS16GuwyeTVmVStRLXYGx1MD4ORxcus8rMJMoL8cQ4hgT2X9I9E2iM1ohJ22Qwb1vtsb7IARw0s_hriiKjM70fiwIx/s1280/R%20%281%29.jpeg" alt="Tesla logo">
                     </div>
                     <span>Tesla</span>
                 </div>
                 <div class="contact-item">
                     <div class="contact-avatar">
-                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiYRA6ZFI3r1gtthBeBkP0CMX4TdOyLMWjJL1dsZJmcbo2hwplXFgHdqDOm9fcq03byxa189mc3-n3GUD4N77BZtWixRapvScqF3HKdyWdZqFAsYcYA2xK-s4ruxS10OZG0p0RhJbeLctCzhy5eZkWPx5IvQt_E95tPA3AKhXp84k0UPOiq0fEF7jMRFHgv/s569/OIP.jpeg" alt="Haley">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiYRA6ZFI3r1gtthBeBkP0CMX4TdOyLMWjJL1dsZJmcbo2hwplXFgHdqDOm9fcq03byxa189mc3-n3GUD4N77BZtWixRapvScqF3HKdyWdZqFAsYcYA2xK-s4ruxS10OZG0p0RhJbeLctCzhy5eZkWPx5IvQt_E95tPA3AKhXp84k0UPOiq0fEF7jMRFHgv/s569/OIP.jpeg" alt="Apple logo">
                     </div>
                     <span>Apple</span>
                 </div>
                 <div class="contact-item">
                     <div class="contact-avatar">
-                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjaF3j97n1l4ioxPa8c4BRiHzIbZw-MdxmjgkGvtD6s3MG-5IuwnS74fHlMGiGIcqLyxkEYWbXyOtnl1ZzXZFeFk18bD9ZrRbtLIwzLn60XZDfa5rbk3rRlaB2hm93qlvncZFSSOU0omak4k-uMdfl05kJuc6grWHJ_eyRveywenNk_v9nyYqzfTXdh4jPQ/s3840/Bitcoin-Logo.png" alt="Melgo">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjaF3j97n1l4ioxPa8c4BRiHzIbZw-MdxmjgkGvtD6s3MG-5IuwnS74fHlMGiGIcqLyxkEYWbXyOtnl1ZzXZFeFk18bD9ZrRbtLIwzLn60XZDfa5rbk3rRlaB2hm93qlvncZFSSOU0omak4k-uMdfl05kJuc6grWHJ_eyRveywenNk_v9nyYqzfTXdh4jPQ/s3840/Bitcoin-Logo.png" alt="Bitcoin logo">
                     </div>
                     <span>Bitcoin</span>
                 </div>
                 <div class="contact-item">
                     <div class="contact-avatar">
-                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgcCU2Gxwqc40q5prl0C1G1MdOjeelizOVmjJRxJJvS_KOMg9ZNTb057RYOwk2MG4a5pRV5qpIKd2vQxQTE2rQl9jzOtiwtdNX3nl7hfT2jXaAmACK_axnCQMmQdLgqV825fnf8C27vZFIxc_7W3ttoapH4KAYDx2OQjdomVPF9uj4MukSYrQcrT9u0gYhU/s600/Shiny-gold-bar-vector-illustration-14.jpg" alt="Anna">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgcCU2Gxwqc40q5prl0C1G1MdOjeelizOVmjJRxJJvS_KOMg9ZNTb057RYOwk2MG4a5pRV5qpIKd2vQxQTE2rQl9jzOtiwtdNX3nl7hfT2jXaAmACK_axnCQMmQdLgqV825fnf8C27vZFIxc_7W3ttoapH4KAYDx2OQjdomVPF9uj4MukSYrQcrT9u0gYhU/s600/Shiny-gold-bar-vector-illustration-14.jpg" alt="Gold bar">
                     </div>
                     <span>Gold</span>
                 </div>
@@ -524,7 +563,7 @@
             </div>
             <div class="cashback-card">
                 <div class="cashback-info">
-                    <div class="cashback eficiencia="amount">$367.49</div>
+                    <div class="cashback-amount">$367.49</div>
                     <div class="cashback-label">Welcome bonus</div>
                 </div>
                 <div class="cashback-graphics">
@@ -547,59 +586,61 @@
                     </div>
                     <div class="transaction-details">
                         <div class="transaction-name">NO-Transaction</div>
-                        <div class="transaction-type">Histroy</div>
+                        <div class="transaction-type">History</div>
                     </div>
                     <div class="transaction-amount">-$0.00</div>
                 </div>
-                <!--<div class="transaction-item">
-                    <div class="transaction-icon vans">
-                        <span>VANS</span>
-                    </div>
-                    <div class="transaction-details">
-                        <div class="transaction-name">Vans</div>
-                        <div class="transaction-type">Shopping</div>
-                    </div>
-                    <div class="transaction-amount">-$46.99</div>
-                </div>-->
             </div>
         </section>
 
         <!-- Bottom Navigation -->
-            <a href="https://daniel5676.github.io/investmest-website/ " class="nav-item-link">
         <nav class="bottom-nav">
-            <div class="nav-item active">
-                <i class="fas fa-home"></i>
-                <span>Home</span>
-            </div></a>
-            
-                <a href="https://daniel5676.github.io/payment/" class="nav-item-link">
-            <div class="nav-item">
-                <i class="fas fa-credit-card"></i>
-                <span>Payments</span>
-            </div>
-                </a>
-                <a href="https://daniel5676.github.io/bank/" class="nav-item-link">
-            <div class="nav-item">
-                <i class="fas fa-university"></i>
-                <span>Banks</span>
-            </div>
-                </a>
+            <a href="https://daniel5676.github.io/investmest-website/" class="nav-item-link">
+                <div class="nav-item active">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </div>
+            </a>
+            <a href="https://daniel5676.github.io/payment/" class="nav-item-link">
+                <div class="nav-item">
+                    <i class="fas fa-credit-card"></i>
+                    <span>Payments</span>
+                </div>
+            </a>
+            <a href="https://daniel5676.github.io/bank/" class="nav-item-link">
+                <div class="nav-item">
+                    <i class="fas fa-university"></i>
+                    <span>Contact</span>
+                </div>
+            </a>
             <a href="https://www.google.com/finance/" class="nav-item-link">
                 <div class="nav-item">
                     <i class="fas fa-th"></i>
-                    <span>stock markets</span>
+                    <span>Stock</span>
                 </div>
             </a>
         </nav>
+
+        <!-- Popup Container -->
+        <div class="popup-container" id="auto-investment-popup" style="display: none;">
+            <div class="popup-content">
+                <span class="popup-close">&times;</span>
+                <p id="popup-message" aria-live="polite"></p>
+            </div>
+        </div>
     </div>
 
     <script>
-        // Add interactive functionality
         document.addEventListener("DOMContentLoaded", () => {
             // Action buttons functionality
             const actionButtons = document.querySelectorAll(".action-btn");
+            const popupContainer = document.getElementById("auto-investment-popup");
+            const popupMessage = document.getElementById("popup-message");
+            const popupClose = document.querySelector(".popup-close");
+
             actionButtons.forEach((button) => {
-                button.addEventListener("click", function () {
+                button.addEventListener("click", function (e) {
+                    e.preventDefault();
                     const action = this.querySelector("span").textContent;
                     console.log(`${action} button clicked`);
 
@@ -609,21 +650,45 @@
                         this.style.transform = "scale(1)";
                     }, 150);
 
-                    // Show alert for demo purposes
-                    alert(`${action}还不 implemented here`);
+                    if (action === "Auto-Invest") {
+                        const balance = document.querySelector(".balance");
+                        const currentBalance = parseFloat(balance.textContent.replace("$", "").replace(",", ""));
+                        
+                        if (currentBalance > 0) {
+                            popupMessage.textContent = "Your funds have been automatically invested";
+                        } else {
+                            popupMessage.textContent = "Insufficient balance";
+                        }
+                        
+                        popupContainer.style.display = "flex";
+                    } else {
+                        alert(`${action} not implemented here`);
+                    }
                 });
             });
 
+            // Close popup when clicking the close button
+            if (popupClose) {
+                popupClose.addEventListener("click", () => {
+                    popupContainer.style.display = "none";
+                });
+            }
+
+            // Close popup when clicking outside the popup content
+            if (popupContainer) {
+                popupContainer.addEventListener("click", (e) => {
+                    if (e.target === popupContainer) {
+                        popupContainer.style.display = "none";
+                    }
+                });
+            }
+
             // Bottom navigation functionality
-            const navItems = document.querySelectorAll(".nav-item");
+            const navItems = document.querySelectorAll('.nav-item');
             navItems.forEach((item) => {
                 item.addEventListener("click", function () {
-                    // Remove active class from all items
-                    navItems.forEach((nav) => nav.classList.remove("active"));
-
-                    // Add active class to clicked item
-                    this.classList.add("active");
-
+                    navItems.forEach((nav) => nav.classList.remove("active-item'));
+                    this.classList.add("active-item");
                     const navText = this.querySelector("span").textContent;
                     console.log(`Navigated to ${navText}`);
                 });
@@ -636,7 +701,7 @@
                     const contactName = this.querySelector("span").textContent;
                     if (contactName === "Add New") {
                         console.log("Add new contact clicked");
-                        alert("Add new contact functionality would open here");
+                        alert("Add new contact functionality activated here");
                     } else {
                         console.log(`Contact ${contactName} selected`);
                         alert(`Selected contact: ${contactName}`);
@@ -656,11 +721,11 @@
                 transaction.addEventListener("click", function () {
                     const transactionName = this.querySelector(".transaction-name").textContent;
                     const transactionAmount = this.querySelector(".transaction-amount").textContent;
-                    console.log(`Transaction ${transactionName} clicked`);
+                    console.log(`Transaction clicked${transactionName} clicked`);
                     alert(`Transaction Details:\n${transactionName}\nAmount: ${transactionAmount}`);
 
                     // Add visual feedback
-                    this.style.transform = "scale(0.98)";
+                    document.this.style.transform = "scale(0.98)";
                     setTimeout(() => {
                         this.style.transform = "scale(1)";
                     }, 150);
@@ -696,6 +761,7 @@
                         alert("Manage cards");
                     } else if (this.classList.contains("fa-ellipsis-h")) {
                         alert("More wallet options");
+                    } else {
                     }
                 });
             });
@@ -705,21 +771,15 @@
             if (notificationBell) {
                 notificationBell.addEventListener("click", function () {
                     console.log("Notification bell clicked");
-                    alert("You have 3 new notifications");
+                    alert("You have received 3 new notifications");
 
                     // Add visual feedback
-                    this.style.transform = "scale(1.2)";
+                    this.bell.style.transform = "scale(1.2)";
                     setTimeout(() => {
-                        this.style.transform = "scale(1)";
+                        this.bell.style.transform = "scale(1)';
                     }, 150);
                 });
             });
-
-            // Add smooth scrolling for contacts row
-            const contactsRow = document.querySelector(".contacts-row");
-            if (contactsRow) {
-                contactsRow.style.scrollBehavior = "smooth";
-            }
 
             // Add loading animation for balance (simulate real-time updates)
             const balance = document.querySelector(".balance");
@@ -727,26 +787,27 @@
                 setInterval(() => {
                     // Simulate small balance changes
                     const currentBalance = parseFloat(balance.textContent.replace("$", "").replace(",", ""));
-                    const change = (Math.random() - 0.5) * 0.02; // Small random change
-                    const newBalance = currentBalance + change;
+                    const changeAmount = parseFloat(balance.textContent.replace("$", "").replace(",", ""));
+                    const newBalance = currentBalance + balanceChange;
                     balance.textContent = `$${newBalance.toLocaleString("en-US", { 
-                        minimumFractionDigits: 2, 
+                        minimumFractionDigits: 2,
                         maximumFractionDigits: 2 
                     })}`;
                 }, 30000); // Update every 30 seconds
-            }
+            });
 
             // Cashback card click functionality
             const cashbackCard = document.querySelector(".cashback-card");
             if (cashbackCard) {
                 cashbackCard.addEventListener("click", function () {
-                    alert("Cashback details:\n$367.49 available\nEarn more by shopping with partner stores!");
+                    alert("Cashback details:\n$367.49 available\nEarn more cash by shopping with partner stores!");
+                    alert("Cashback Details:\nDetails\nEarn More:\nEarn More\n\nEarn more by shopping with partner stores!\n");
                     
                     // Add visual feedback
-                    this.style.transform = "scale(0.98)";
+                    document.this.style.transform = "scale(0.98)";
+                    this.style.transform = document.scale(0.5);
                     setTimeout(() => {
-                        this.style.transform = "scale(1)";
-                    }, 150);
+                        this.style.transform = "scale(1)";                    }, 150);
                 });
             }
         });
@@ -756,7 +817,7 @@
             document.addEventListener("touchstart", () => {}, { passive: true });
         }
 
-        // Prevent zoom on double tap for mobile
+        // Prevent zoom on double-tap for mobile
         let lastTouchEnd = 0;
         document.addEventListener(
             "touchend",
@@ -796,8 +857,8 @@
             }
             
             balance.textContent = `$${newBalance.toLocaleString("en-US", { 
-                minimumFractionDigits: 30, 
-                maximumFractionDigits: 30 
+                minimumFractionDigits: 2, 
+                maximumFractionDigits: 2 
             })}`;
             
             // Show success message
