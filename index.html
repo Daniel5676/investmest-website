@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Wallet App</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: linear-gradient(135deg, #adbaf0 0%, #ddc5f5 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .app-container {
+            width: 375px;
+            min-height: 812px; /* Changed to min-height to accommodate content */
+            background: #f8f9fa;
+            border-radius: 32px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 20px 10px;
+            background: #f8f9fa;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .greeting {
+            font-size: 18px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .header-icons {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+        }
+
+        .notification-dot {
+            width: 8px;
+            height: 8px;
+            background: #333;
+            border-radius: 50%;
+        }
+
+        .header-icons i {
+            font-size: 18px;
+            color: #333;
+        }
+
+        /* Wallet Section */
+        .wallet-section {
+            padding: 20px;
+            background: #f8f9fa;
+        }
+
+        .wallet-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .wallet-label {
+            font-size: 16px;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .wallet-label::after {
+            content: "▼";
+            font-size: 12px;
+        }
+
+        .wallet-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .wallet-icons i {
+            font-size: 16px;
+            color: #666;
+            cursor: pointer;
+        }
+
+        .balance {
+            font-size: 36px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .action-btn {
+            flex: 1;
+            background: #e9ecef;
+            border: none;
+            border-radius: 16px;
+            padding: 20px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .action-btn:hover {
+            background: #dee2e6;
+        }
+
+        .btn-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-icon i {
+            font-size: 14px;
+            color: #333;
+        }
+
+        .action-btn span {
+            font-size: 14px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        /* Resent Section */
+        .resent-section {
+            padding: 20px;
+            background: #f8f9fa;
+        }
+
+        .resent-section h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .contacts-row {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            min-width: 60px;
+            cursor: pointer;
+        }
+
+        .contact-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-avatar.add-new {
+            background: #e9ecef;
+        }
+
+        .contact-avatar.add-new i {
+            font-size: 20px;
+            color: #666;
+        }
+
+        .contact-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .contact-item span {
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+        }
+
+        /* Cashback Section */
+        .cashback-section {
+            padding: 20px;
+            background: #f8f9fa;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .section-header h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .view-all {
+            font-size: 14px;
+            color: #666;
+            cursor: pointer;
+        }
+
+        .cashback-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .cashback-amount {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .cashback-label {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .cashback-graphics {
+            display: flex;
+            gap: 10px;
+        }
+
+        .card-graphic {
+            width: 40px;
+            height: 25px;
+            border-radius: 6px;
+        }
+
+        .card-graphic.purple {
+            background: linear-gradient(135deg, #a855f7, #8b5cf6);
+        }
+
+        .card-graphic.green {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+
+        /* Transactions Section */
+        .transactions-section {
+            padding: 20px;
+            background: #f8f9fa;
+            flex: 1;
+            overflow-y: auto; /* Make transactions section scrollable */
+        }
+
+        .transaction-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .transaction-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: #fff;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .transaction-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .transaction-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 12px;
+            color: white;
+        }
+
+        .transaction-icon.netflix {
+            background: #e50914;
+        }
+
+        .transaction-icon.vans {
+            background: #000;
+            font-size: 8px;
+        }
+
+        .transaction-details {
+            flex: 1;
+        }
+
+        .transaction-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 2px;
+        }
+
+        .transaction-type {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .transaction-amount {
+            font-size: 16px;
+            font-weight: 600;
+            color: #e74c3c;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            display: flex;
+            background: #fff;
+            padding: 15px 20px 25px;
+            border-top: 1px solid #e9ecef;
+            position: sticky; /* Make footer always visible */
+            bottom: 0;
+            z-index: 1000; /* Ensure it stays above other content */
+        }
+
+        .nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+            padding: 10px;
+            border-radius: 16px;
+        }
+
+        .nav-item i {
+            font-size: 20px;
+            color: #666;
+        }
+
+        .nav-item span {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .nav-item.active {
+            background: linear-gradient(135deg, #a855f7, #8b5cf6);
+        }
+
+        .nav-item.active i,
+        .nav-item.active span {
+            color: white;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 400px) {
+            .app-container {
+                width: 100%;
+                min-height: 100vh; /* Changed to min-height */
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="user-info">
+                <div class="avatar">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhTRVJertwnurlDPP9POdmMJC7PsdxFvoLsu2VzJYkGMY-APwMhYtYGsZfz1eqE1kKgiMHQmrISBSjGmQ7YlzpZrQ3ouQYyA-VNgOMPq14StIiBjD46abcMYzpr0qWq-6UlHjz7j1NlT58hvoNGSAm3XduuNj3Hmw1PqcfrUy4_wDF2pHU221jbQ0uxeRvX/s1920/Color-Tesla-logo.jpg" alt="Tesla">
+                </div>
+                <span class="greeting">Tesla</span>
+            </div>
+            <div class="header-icons">
+                <div class="notification-dot"></div>
+                <i class="fas fa-bell"></i>
+            </div>
+        </header>
+
+        <!-- Main Wallet Section -->
+        <section class="wallet-section">
+            <div class="wallet-header">
+                <span class="wallet-label">Main wallet</span>
+                <div class="wallet-icons">
+                    <i class="fas fa-eye"></i>
+                    <i class="fas fa-credit-card"></i>
+                    <i class="fas fa-ellipsis-h"></i>
+                </div>
+            </div>
+            <div class="balance">$0.00</div>
+            
+            <div class="action-buttons">
+                <button class="action-btn">
+                    <div class="btn-icon">
+                        <i class="fas fa-arrow-up"></i>
+                    </div>
+                    <span>Withdraw</span>
+                </button>
+                <button class="action-btn">
+                    <div class="btn-icon">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+                    <span>Deposite</span>
+                </button>
+                <button class="action-btn">
+                    <div class="btn-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <span>Auto-Invest</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Resent Section -->
+        <section class="resent-section">
+            <h3>Trending Stock</h3>
+            <div class="contacts-row">
+                <div class="contact-item">
+                    <div class="contact-avatar add-new">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <span>Add New</span>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-avatar">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50'%3E%3Ccircle cx='25' cy='25' r='25' fill='%23f0ad4e'/%3E%3Ccircle cx='25' cy='20' r='8' fill='%23fff'/%3E%3Cpath d='M10 40c0-8.284 6.716-15 15-15s15 6.716 15 15' fill='%23fff'/%3E%3C/svg%3E" alt="Ben">
+                    </div>
+                    <span>Tesla</span>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-avatar">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50'%3E%3Ccircle cx='25' cy='25' r='25' fill='%235bc0de'/%3E%3Ccircle cx='25' cy='20' r='8' fill='%23fff'/%3E%3Cpath d='M10 40c0-8.284 6.716-15 15-15s15 6.716 15 15' fill='%23fff'/%3E%3C/svg%3E" alt="Haley">
+                    </div>
+                    <span>Apple</span>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-avatar">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50'%3E%3Ccircle cx='25' cy='25' r='25' fill='%23d9534f'/%3E%3Ccircle cx='25' cy='20' r='8' fill='%23fff'/%3E%3Cpath d='M10 40c0-8.284 6.716-15 15-15s15 6.716 15 15' fill='%23fff'/%3E%3C/svg%3E" alt="Melgo">
+                    </div>
+                    <span>Bitcoin</span>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-avatar">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50'%3E%3Ccircle cx='25' cy='25' r='25' fill='%235cb85c'/%3E%3Ccircle cx='25' cy='20' r='8' fill='%23fff'/%3E%3Cpath d='M10 40c0-8.284 6.716-15 15-15s15 6.716 15 15' fill='%23fff'/%3E%3C/svg%3E" alt="Anna">
+                    </div>
+                    <span>Gold</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cashback Section -->
+        <section class="cashback-section">
+            <div class="section-header">
+                <h3>Cashback</h3>
+                <span class="view-all">View all</span>
+            </div>
+            <div class="cashback-card">
+                <div class="cashback-info">
+                    <div class="cashback eficiencia="amount">$367.49</div>
+                    <div class="cashback-label">Welcome bonus</div>
+                </div>
+                <div class="cashback-graphics">
+                    <div class="card-graphic purple"></div>
+                    <div class="card-graphic green"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Transactions Section -->
+        <section class="transactions-section">
+            <div class="section-header">
+                <h3>Transactions</h3>
+                <span class="view-all">View all</span>
+            </div>
+            <div class="transaction-list">
+                <div class="transaction-item">
+                    <div class="transaction-icon netflix">
+                        <span>N</span>
+                    </div>
+                    <div class="transaction-details">
+                        <div class="transaction-name">NO-Transaction</div>
+                        <div class="transaction-type">Histroy</div>
+                    </div>
+                    <div class="transaction-amount">-$0.00</div>
+                </div>
+                <!--<div class="transaction-item">
+                    <div class="transaction-icon vans">
+                        <span>VANS</span>
+                    </div>
+                    <div class="transaction-details">
+                        <div class="transaction-name">Vans</div>
+                        <div class="transaction-type">Shopping</div>
+                    </div>
+                    <div class="transaction-amount">-$46.99</div>
+                </div>-->
+            </div>
+        </section>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <div class="nav-item active">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-credit-card"></i>
+                <span>Payments</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-university"></i>
+                <span>Banks</span>
+            </div>
+            <a href="https://www.google.com/finance/" class="nav-item-link">
+                <div class="nav-item">
+                    <i class="fas fa-th"></i>
+                    <span>stock markets</span>
+                </div>
+            </a>
+        </nav>
+    </div>
+
+    <script>
+        // Add interactive functionality
+        document.addEventListener("DOMContentLoaded", () => {
+            // Action buttons functionality
+            const actionButtons = document.querySelectorAll(".action-btn");
+            actionButtons.forEach((button) => {
+                button.addEventListener("click", function () {
+                    const action = this.querySelector("span").textContent;
+                    console.log(`${action} button clicked`);
+
+                    // Add visual feedback
+                    this.style.transform = "scale(0.95)";
+                    setTimeout(() => {
+                        this.style.transform = "scale(1)";
+                    }, 150);
+
+                    // Show alert for demo purposes
+                    alert(`${action}还不 implemented here`);
+                });
+            });
+
+            // Bottom navigation functionality
+            const navItems = document.querySelectorAll(".nav-item");
+            navItems.forEach((item) => {
+                item.addEventListener("click", function () {
+                    // Remove active class from all items
+                    navItems.forEach((nav) => nav.classList.remove("active"));
+
+                    // Add active class to clicked item
+                    this.classList.add("active");
+
+                    const navText = this.querySelector("span").textContent;
+                    console.log(`Navigated to ${navText}`);
+                });
+            });
+
+            // Contact avatars click functionality
+            const contactItems = document.querySelectorAll(".contact-item");
+            contactItems.forEach((contact) => {
+                contact.addEventListener("click", function () {
+                    const contactName = this.querySelector("span").textContent;
+                    if (contactName === "Add New") {
+                        console.log("Add new contact clicked");
+                        alert("Add new contact functionality would open here");
+                    } else {
+                        console.log(`Contact ${contactName} selected`);
+                        alert(`Selected contact: ${contactName}`);
+                    }
+
+                    // Add visual feedback
+                    this.style.transform = "scale(0.95)";
+                    setTimeout(() => {
+                        this.style.transform = "scale(1)";
+                    }, 150);
+                });
+            });
+
+            // Transaction items click functionality
+            const transactionItems = document.querySelectorAll(".transaction-item");
+            transactionItems.forEach((transaction) => {
+                transaction.addEventListener("click", function () {
+                    const transactionName = this.querySelector(".transaction-name").textContent;
+                    const transactionAmount = this.querySelector(".transaction-amount").textContent;
+                    console.log(`Transaction ${transactionName} clicked`);
+                    alert(`Transaction Details:\n${transactionName}\nAmount: ${transactionAmount}`);
+
+                    // Add visual feedback
+                    this.style.transform = "scale(0.98)";
+                    setTimeout(() => {
+                        this.style.transform = "scale(1)";
+                    }, 150);
+                });
+            });
+
+            // View all links functionality
+            const viewAllLinks = document.querySelectorAll(".view-all");
+            viewAllLinks.forEach((link) => {
+                link.addEventListener("click", function () {
+                    const section = this.closest("section").querySelector("h3").textContent;
+                    console.log(`View all ${section} clicked`);
+                    alert(`View all ${section} would show more items here`);
+                });
+            });
+
+            // Wallet icons functionality
+            const walletIcons = document.querySelectorAll(".wallet-icons i");
+            walletIcons.forEach((icon) => {
+                icon.addEventListener("click", function () {
+                    console.log("Wallet icon clicked");
+
+                    // Add visual feedback
+                    this.style.transform = "scale(1.2)";
+                    setTimeout(() => {
+                        this.style.transform = "scale(1)";
+                    }, 150);
+
+                    // Different actions for different icons
+                    if (this.classList.contains("fa-eye")) {
+                        alert("Toggle balance visibility");
+                    } else if (this.classList.contains("fa-credit-card")) {
+                        alert("Manage cards");
+                    } else if (this.classList.contains("fa-ellipsis-h")) {
+                        alert("More wallet options");
+                    }
+                });
+            });
+
+            // Header notification bell
+            const notificationBell = document.querySelector(".header-icons .fa-bell");
+            if (notificationBell) {
+                notificationBell.addEventListener("click", function () {
+                    console.log("Notification bell clicked");
+                    alert("You have 3 new notifications");
+
+                    // Add visual feedback
+                    this.style.transform = "scale(1.2)";
+                    setTimeout(() => {
+                        this.style.transform = "scale(1)";
+                    }, 150);
+                });
+            });
+
+            // Add smooth scrolling for contacts row
+            const contactsRow = document.querySelector(".contacts-row");
+            if (contactsRow) {
+                contactsRow.style.scrollBehavior = "smooth";
+            }
+
+            // Add loading animation for balance (simulate real-time updates)
+            const balance = document.querySelector(".balance");
+            if (balance) {
+                setInterval(() => {
+                    // Simulate small balance changes
+                    const currentBalance = parseFloat(balance.textContent.replace("$", "").replace(",", ""));
+                    const change = (Math.random() - 0.5) * 0.02; // Small random change
+                    const newBalance = currentBalance + change;
+                    balance.textContent = `$${newBalance.toLocaleString("en-US", { 
+                        minimumFractionDigits: 2, 
+                        maximumFractionDigits: 2 
+                    })}`;
+                }, 30000); // Update every 30 seconds
+            }
+
+            // Cashback card click functionality
+            const cashbackCard = document.querySelector(".cashback-card");
+            if (cashbackCard) {
+                cashbackCard.addEventListener("click", function () {
+                    alert("Cashback details:\n$367.49 available\nEarn more by shopping with partner stores!");
+                    
+                    // Add visual feedback
+                    this.style.transform = "scale(0.98)";
+                    setTimeout(() => {
+                        this.style.transform = "scale(1)";
+                    }, 150);
+                });
+            }
+        });
+
+        // Add touch feedback for mobile devices
+        if ("ontouchstart" in window) {
+            document.addEventListener("touchstart", () => {}, { passive: true });
+        }
+
+        // Prevent zoom on double tap for mobile
+        let lastTouchEnd = 0;
+        document.addEventListener(
+            "touchend",
+            (event) => {
+                const now = new Date().getTime();
+                if (now - lastTouchEnd <= 300) {
+                    event.preventDefault();
+                }
+                lastTouchEnd = now;
+            },
+            false
+        );
+
+        // Add some demo functionality for wallet actions
+        function simulateTransaction(type) {
+            const balance = document.querySelector(".balance");
+            const currentBalance = parseFloat(balance.textContent.replace("$", "").replace(",", ""));
+            
+            let newBalance;
+            let message;
+            
+            switch(type) {
+                case 'Send':
+                    newBalance = currentBalance - Math.random() * 100;
+                    message = "Money sent successfully!";
+                    break;
+                case 'Receive':
+                    newBalance = currentBalance + Math.random() * 200;
+                    message = "Money received!";
+                    break;
+                case 'Swap':
+                    message = "Currency swap completed!";
+                    newBalance = currentBalance;
+                    break;
+                default:
+                    return;
+            }
+            
+            balance.textContent = `$${newBalance.toLocaleString("en-US", { 
+                minimumFractionDigits: 30, 
+                maximumFractionDigits: 30 
+            })}`;
+            
+            // Show success message
+            setTimeout(() => {
+                alert(message);
+            }, 200);
+        }
+    </script>
+</body>
+</html>
