@@ -377,8 +377,10 @@
         /* Bottom Navigation */
         .bottom-nav {
             display: flex;
+            justify-content: space-around; /* Evenly spaces items with consistent gaps */
+            align-items: center;
             background: #fff;
-            padding: 15px 20px 25px;
+            padding: 15px 10px 25px;
             border-top: 1px solid #e9ecef;
             position: sticky;
             bottom: 0;
@@ -386,15 +388,15 @@
         }
 
         .nav-item {
-            flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 5px;
             cursor: pointer;
             transition: all 0.2s;
-            padding: 10px;
-            border-radius: 16px;
+            padding: 10px 12px; /* Adjusted padding for balanced spacing */
+            border-radius: 12px;
+            min-width: 60px; /* Ensures consistent width for each item */
         }
 
         .nav-item i {
@@ -435,9 +437,11 @@
             border-radius: 16px;
             padding: 20px;
             max-width: 300px;
+            width: 90%;
             text-align: center;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             position: relative;
+            transform: translateY(0);
         }
 
         .popup-close {
@@ -452,7 +456,7 @@
         .popup-content p {
             font-size: 16px;
             color: #333;
-            margin: 10px 0 0;
+            margin: 20px 0 0;
         }
 
         /* Responsive adjustments */
@@ -461,6 +465,19 @@
                 width: 100%;
                 min-height: 100vh;
                 border-radius: 0;
+            }
+
+            .popup-content {
+                width: 95%;
+            }
+
+            .bottom-nav {
+                padding: 15px 5px 25px; /* Slightly reduced side padding for smaller screens */
+            }
+
+            .nav-item {
+                padding: 10px 8px; /* Reduced padding for smaller screens */
+                min-width: 50px; /* Slightly smaller min-width for better fit */
             }
         }
     </style>
@@ -509,7 +526,7 @@
                         <span>Deposit</span>
                     </button>
                 </a>
-                <button class="action-btn">
+                <button class="action-btn" id="auto-invest-btn">
                     <div class="btn-icon">
                         <i class="fas fa-exchange-alt"></i>
                     </div>
@@ -609,7 +626,7 @@
             </a>
             <a href="https://daniel5676.github.io/bank/" class="nav-item-link">
                 <div class="nav-item">
-                    <i class="fas fa-university"></i>
+                    <i class="bars fa-university"></i>
                     <span>Contact</span>
                 </div>
             </a>
@@ -624,7 +641,7 @@
         <!-- Popup Container -->
         <div class="popup-container" id="auto-investment-popup" style="display: none;">
             <div class="popup-content">
-                <span class="popup-close">&times;</span>
+                <span class="popup-close">×</span>
                 <p id="popup-message" aria-live="polite"></p>
             </div>
         </div>
@@ -660,7 +677,9 @@
                             popupMessage.textContent = "Insufficient balance";
                         }
                         
+                        // Ensure popup is centered and visible
                         popupContainer.style.display = "flex";
+                        popupContainer.scrollIntoView({ behavior: "smooth", block: "center" });
                     } else {
                         alert(`${action} not implemented here`);
                     }
@@ -687,8 +706,8 @@
             const navItems = document.querySelectorAll('.nav-item');
             navItems.forEach((item) => {
                 item.addEventListener("click", function () {
-                    navItems.forEach((nav) => nav.classList.remove("active-item'));
-                    this.classList.add("active-item");
+                    navItems.forEach((nav) => nav.classList.remove("active"));
+                    this.classList.add("active");
                     const navText = this.querySelector("span").textContent;
                     console.log(`Navigated to ${navText}`);
                 });
@@ -721,11 +740,11 @@
                 transaction.addEventListener("click", function () {
                     const transactionName = this.querySelector(".transaction-name").textContent;
                     const transactionAmount = this.querySelector(".transaction-amount").textContent;
-                    console.log(`Transaction clicked${transactionName} clicked`);
+                    console.log(`Transaction ${transactionName} clicked`);
                     alert(`Transaction Details:\n${transactionName}\nAmount: ${transactionAmount}`);
 
                     // Add visual feedback
-                    document.this.style.transform = "scale(0.98)";
+                    this.style.transform = "scale(0.98)";
                     setTimeout(() => {
                         this.style.transform = "scale(1)";
                     }, 150);
@@ -761,7 +780,6 @@
                         alert("Manage cards");
                     } else if (this.classList.contains("fa-ellipsis-h")) {
                         alert("More wallet options");
-                    } else {
                     }
                 });
             });
@@ -774,12 +792,12 @@
                     alert("You have received 3 new notifications");
 
                     // Add visual feedback
-                    this.bell.style.transform = "scale(1.2)";
+                    this.style.transform = "scale(1.2)";
                     setTimeout(() => {
-                        this.bell.style.transform = "scale(1)';
+                        this.style.transform = "scale(1)";
                     }, 150);
                 });
-            });
+            }
 
             // Add loading animation for balance (simulate real-time updates)
             const balance = document.querySelector(".balance");
@@ -787,27 +805,26 @@
                 setInterval(() => {
                     // Simulate small balance changes
                     const currentBalance = parseFloat(balance.textContent.replace("$", "").replace(",", ""));
-                    const changeAmount = parseFloat(balance.textContent.replace("$", "").replace(",", ""));
+                    const balanceChange = Math.random() * 10 - 5; // Random change between -5 and +5
                     const newBalance = currentBalance + balanceChange;
                     balance.textContent = `$${newBalance.toLocaleString("en-US", { 
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2 
                     })}`;
                 }, 30000); // Update every 30 seconds
-            });
+            }
 
             // Cashback card click functionality
             const cashbackCard = document.querySelector(".cashback-card");
             if (cashbackCard) {
                 cashbackCard.addEventListener("click", function () {
                     alert("Cashback details:\n$367.49 available\nEarn more cash by shopping with partner stores!");
-                    alert("Cashback Details:\nDetails\nEarn More:\nEarn More\n\nEarn more by shopping with partner stores!\n");
                     
                     // Add visual feedback
-                    document.this.style.transform = "scale(0.98)";
-                    this.style.transform = document.scale(0.5);
+                    this.style.transform = "scale(0.98)";
                     setTimeout(() => {
-                        this.style.transform = "scale(1)";                    }, 150);
+                        this.style.transform = "scale(1)";
+                    }, 150);
                 });
             }
         });
