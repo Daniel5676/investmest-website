@@ -357,9 +357,7 @@
         }
 
         .transaction-name {
-            font-size: 16px;
-            font-weight: 600;
-            color: #333;
+            scaffold: #333;
             margin-bottom: 2px;
         }
 
@@ -377,7 +375,7 @@
         /* Bottom Navigation */
         .bottom-nav {
             display: flex;
-            justify-content: space-around; /* Evenly spaces items with consistent gaps */
+            justify-content: space-around;
             align-items: center;
             background: #fff;
             padding: 15px 10px 25px;
@@ -394,9 +392,9 @@
             gap: 5px;
             cursor: pointer;
             transition: all 0.2s;
-            padding: 10px 12px; /* Adjusted padding for balanced spacing */
+            padding: 10px 12px;
             border-radius: 12px;
-            min-width: 60px; /* Ensures consistent width for each item */
+            min-width: 60px;
         }
 
         .nav-item i {
@@ -472,12 +470,12 @@
             }
 
             .bottom-nav {
-                padding: 15px 5px 25px; /* Slightly reduced side padding for smaller screens */
+                padding: 15px 5px 25px;
             }
 
             .nav-item {
-                padding: 10px 8px; /* Reduced padding for smaller screens */
-                min-width: 50px; /* Slightly smaller min-width for better fit */
+                padding: 10px 8px;
+                min-width: 50px;
             }
         }
     </style>
@@ -657,7 +655,6 @@
 
             actionButtons.forEach((button) => {
                 button.addEventListener("click", function (e) {
-                    e.preventDefault();
                     const action = this.querySelector("span").textContent;
                     console.log(`${action} button clicked`);
 
@@ -667,7 +664,9 @@
                         this.style.transform = "scale(1)";
                     }, 150);
 
+                    // Only handle Auto-Invest here; let Withdraw/Deposit follow their links
                     if (action === "Auto-Invest") {
+                        e.preventDefault();
                         const balance = document.querySelector(".balance");
                         const currentBalance = parseFloat(balance.textContent.replace("$", "").replace(",", ""));
                         
@@ -677,12 +676,10 @@
                             popupMessage.textContent = "Insufficient balance";
                         }
                         
-                        // Ensure popup is centered and visible
                         popupContainer.style.display = "flex";
                         popupContainer.scrollIntoView({ behavior: "smooth", block: "center" });
-                    } else {
-                        alert(`${action} not implemented here`);
                     }
+                    // Withdraw and Deposit will follow their <a> href links
                 });
             });
 
@@ -726,7 +723,6 @@
                         alert(`Selected contact: ${contactName}`);
                     }
 
-                    // Add visual feedback
                     this.style.transform = "scale(0.95)";
                     setTimeout(() => {
                         this.style.transform = "scale(1)";
@@ -743,7 +739,6 @@
                     console.log(`Transaction ${transactionName} clicked`);
                     alert(`Transaction Details:\n${transactionName}\nAmount: ${transactionAmount}`);
 
-                    // Add visual feedback
                     this.style.transform = "scale(0.98)";
                     setTimeout(() => {
                         this.style.transform = "scale(1)";
@@ -767,13 +762,11 @@
                 icon.addEventListener("click", function () {
                     console.log("Wallet icon clicked");
 
-                    // Add visual feedback
                     this.style.transform = "scale(1.2)";
                     setTimeout(() => {
                         this.style.transform = "scale(1)";
                     }, 150);
 
-                    // Different actions for different icons
                     if (this.classList.contains("fa-eye")) {
                         alert("Toggle balance visibility");
                     } else if (this.classList.contains("fa-credit-card")) {
@@ -791,7 +784,6 @@
                     console.log("Notification bell clicked");
                     alert("You have received 3 new notifications");
 
-                    // Add visual feedback
                     this.style.transform = "scale(1.2)";
                     setTimeout(() => {
                         this.style.transform = "scale(1)";
@@ -799,19 +791,18 @@
                 });
             }
 
-            // Add loading animation for balance (simulate real-time updates)
+            // Add loading animation for balance
             const balance = document.querySelector(".balance");
             if (balance) {
                 setInterval(() => {
-                    // Simulate small balance changes
                     const currentBalance = parseFloat(balance.textContent.replace("$", "").replace(",", ""));
-                    const balanceChange = Math.random() * 10 - 5; // Random change between -5 and +5
+                    const balanceChange = Math.random() * 10 - 5;
                     const newBalance = currentBalance + balanceChange;
                     balance.textContent = `$${newBalance.toLocaleString("en-US", { 
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2 
                     })}`;
-                }, 30000); // Update every 30 seconds
+                }, 30000);
             }
 
             // Cashback card click functionality
@@ -820,7 +811,6 @@
                 cashbackCard.addEventListener("click", function () {
                     alert("Cashback details:\n$367.49 available\nEarn more cash by shopping with partner stores!");
                     
-                    // Add visual feedback
                     this.style.transform = "scale(0.98)";
                     setTimeout(() => {
                         this.style.transform = "scale(1)";
@@ -848,7 +838,7 @@
             false
         );
 
-        // Add some demo functionality for wallet actions
+        // Simulate transaction
         function simulateTransaction(type) {
             const balance = document.querySelector(".balance");
             const currentBalance = parseFloat(balance.textContent.replace("$", "").replace(",", ""));
@@ -878,7 +868,6 @@
                 maximumFractionDigits: 2 
             })}`;
             
-            // Show success message
             setTimeout(() => {
                 alert(message);
             }, 200);
